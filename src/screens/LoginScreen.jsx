@@ -1,21 +1,47 @@
-import { Image, View } from "react-native";
-import { TextInput } from "react-native-paper";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { View, } from "react-native";
+import { Button, Paragraph, TextInput } from "react-native-paper";
 import { styles } from "../utils/styles";
+import { useState } from "react";
+import { auth } from "../config/firebase";
 
 export default function LoginScreen() {
+
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  function handleLogin(){
+   signInWithEmailAndPassword(auth, email, senha)
+   .then((userLogin) =>{
+       console.log("Usuário logado com sucesso!")
+   })
+   .catch((error) =>{
+       console.log("Erro ao logar usuário", error);
+   });
+
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.box}>
-        <Image
-          source={{ uri: "https://picsum.photos/200" }}
-          style={{ width: 200, height: 200 }}
+        <Paragraph>Faça Login</Paragraph>
+        <TextInput 
+        label={"E-mail"} 
+        placeholder="Digite seu e-mail" 
+        value={email}
+        onChangeText={setEmail}
+        mode="outlined"
         />
-        <TextInput label="Email" placeholder="Digite seu email" />
-        <TextInput
-          label={"Senha"}
-          placeholder={"Digite sua senha"}
-          secureTextEntry={true} // faz com que o texto pareça ser uma senha
-        />
+
+        <TextInput 
+        label={"Senha"} 
+        placeholder="Digite sua senha" 
+        secureTextEntry={true}
+         value={senha} 
+         onChangeText={setSenha}
+         mode="outlined"
+         />
+         <Button onPress={handleLogin}>Faça login </Button>
       </View>
     </View>
   );
