@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 import SplashScreen from "./screens/SplashScreen";
 
 const Stack = createNativeStackNavigator();
@@ -49,10 +50,7 @@ function TabsNavigation() {
           tabBarLabel: "Faça seu Login",
         }}
       />
-      <Tabs.Screen
-      name = "RegisterScreen"
-      component={LoginScreen}
-      />
+      <Tabs.Screen name="RegisterScreen" component={RegisterScreen} />
     </Tabs.Navigator>
   );
 }
